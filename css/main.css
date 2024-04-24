@@ -8,27 +8,27 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: rgb(128, 209, 209);
-    background-image: url('/images/background.jpg');
+    background-image: url('../images/background.jpg');
     position: relative;
     overflow: hidden;
 }
 
 #player {
-    background-image: url('/images/cat.png');
+    background-image: url('../images/cat.png');
     background-size: cover;
     position: absolute;
 }
 
 .goodChicken {
     position: absolute;
-    background-image: url('/images/goodChicken.png');
+    background-image: url('../images/goodChicken.png');
     background-size: cover;
 }
 
 
 .badChicken {
     position: absolute; 
-    background-image: url('/images/badChicken.png');  
+    background-image: url('../images/badChicken.png');  
     background-position: cover;
 }
 .score {
