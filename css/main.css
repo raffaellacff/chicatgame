@@ -1,63 +1,42 @@
 body {
     background-color: pink;
     margin: 0;
-    font-size: 20px;
-    color: rgba(158, 88, 222, 0.873);
-    font-family: "Ubuntu", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-    display: flex;
-    flex-flow: column wrap;    
-    align-items: center;
+    padding: 0;
 }
 
 #board {
-    width: 1200px;
-    height: 700px;
-    margin: auto;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(128, 209, 209);
+    background-image: url('/images/background.jpg');
     position: relative;
-    background-image: url("/images/background.jpg");
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
+    overflow: hidden;
 }
 
-#cat {
+#player {
+    background-image: url('/images/cat.png');
+    background-size: cover;
     position: absolute;
-    background-image: url("/images/cat.png");
-    background-size: cover;
 }
 
-#goodChicken {
+.goodChicken {
     position: absolute;
-    background-size: cover;
-
-}
-
-#badChicken {
-    position: absolute;
+    background-image: url('/images/goodChicken.png');
     background-size: cover;
 }
 
-/* instructions and gameover page */
 
-.button{
-    display: inline-block;
-    outline: 0;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    border-radius: 10px;
-    font-size: 13px;
-    height: 30px;
-    background-color: #7646bd;
-    color: rgb(230, 111, 216);
-    padding: 7px 17px;
+.badChicken {
+    position: absolute; 
+    background-image: url('/images/badChicken.png');  
+    background-position: cover;
 }
-.gif-container{
-    width: 300px;
-    height: 250px;
-    background-image:url("/images/YOULOST.gif") ;
-    background-size: cover;
-    margin-top: 20px;
-}
+.score {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 40px;
+  }
+
+
+  

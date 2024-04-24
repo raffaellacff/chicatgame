@@ -1,125 +1,162 @@
-class Cat {
-    constructor(){
-        this.x = 0;
-        this.y = 0;
-        this.width = 80;
-        this.height = 90;
-        this.speed = 30;
-        this.isJumping = false;
+class Player {
+    constructor() {
+        this.width = 100;
+        this.height = 100;
+        this.positionX = 512 - this.width / 2;
+        this.positionY = 0;
+        this.score = 0;
 
-        this.playerELm = document.getElementById("cat");
-        this.playerELm.style.width = this.width + "px";
-        this.playerELm.style.height = this.height + "px";
-        this.playerELm.style.bottom = this.y + "px";
-        this.playerELm.style.left = this.x + "px";
+        this.playerElm = document.getElementById("player");
+        this.playerElm.style.left = this.positionX + "px";
+        this.playerElm.style.bottom = this.positionY + "px";
+        this.playerElm.style.width = this.width + "px";
+        this.playerElm.style.height = this.height + "px";
     }
-    walkLeft(){
-        this.x-= this.speed;   
-        this.playerELm.style.left = this.x + "px";
-    }
-    walkRight(){
-        this.x+= this.speed;  
-        this.playerELm.style.left = this.x + "px";
-    }
-    jump() {
-        if (this.isJumping) {
-            if (this.y < 100) {
-                this.y += this.speed;
-                this.playerELm.style.bottom = this.y + "px";
-            } else {
-                this.isJumping = false;
-            }
-        } else {
-            if(this.y > 0) {
-                this.y -= this.speed;
-                this.playerELm.style.bottom = this.y + "px";                
-            } else {
-                this.isJumping = true;
-            }
+    moveLeft() {
+        if (this.positionX > 0) {
+            this.positionX -= 10.24;
+            this.playerElm.style.left = this.positionX + "px";
         }
     }
-
-}
-
-class GoodChicken {
-    constructor(){
-        this.width = 50;
-        this.height = 50;
-        this.x = Math.floor(Math.random() * (100 - this.width + 1));
-        this.y = 100;
-        this.GCelm = null;
-        this.imageUrl = 'images/goodChicken.png';
-
-        this.createDomElement();
+    moveRight() {
+        if (this.positionX < 1224 - this.width) {
+            this.positionX += 10.24;
+            this.playerElm.style.left = this.positionX + "px";
+        }
     }
-    createDomElement(){
-        this.GCelm = document.createElement("div");
-
-        this.GCelm.className = "goodChicken"
-        this.GCelm.style.width = this.width + "px";
-        this.GCelm.style.height = this.height + "px";
-        this.GCelm.style.left = this.x + "px";
-        this.GCelm.style.top = this.y + "px";
-        this.GCelm.style.backgroundImage = `url(${this.imageUrl})`;
-        this.GCelm.style.backgroundSize = "cover";
-
-        const parentElm = document.getElementById("board");
-        parentElm.appendChild(this.GCelm);
-        
+    increaseScore(){
+        this.score++;
+        document.getElementById("score").innerText = "score:" + this.score;
     }
-    moveDown(){
-        this.y--;
-        this.GCelm.style.top = this.y + "px";
+
+    gameOver(){
+        document.location.href = "gameover.html";
     }
 }
 
 
-class BadChicken {
+const player = new Player();
+
+
+// CODE FOR THE GOOD CHICKEN
+
+
+class Obstacle {
     constructor(){
         this.width = 70;
         this.height = 70;
-        this.x = Math.floor(Math.random() * (100 - this.width + 1));
-        this.y = 100;
-        this.BCelm = null;
-        this.imageUrl = 'images/badChicken.png';
+        this.positionX = Math.floor(Math.random() * (1600 - this.width + 1));
+        this.positionY = 700;
+        this.obstacleElm = null;
 
         this.createDomElement();
     }
     createDomElement(){
-        this.BCelm = document.createElement("div");
+        this.obstacleElm = document.createElement("div");
 
-        this.BCelm.className = "badChicken"
-        this.BCelm.style.width = this.width + "px";
-        this.BCelm.style.height = this.height + "px";
-        this.BCelm.style.left = this.x + "px";
-        this.BCelm.style.top = this.y + "px";
-        this.BCelm.style.backgroundImage = `url(${this.imageUrl})`;
-        this.BCelm.style.backgroundSize = "cover";
+        this.obstacleElm.className = "goodChicken";
+        this.obstacleElm.style.left = this.positionX + "px";
+        this.obstacleElm.style.bottom = this.positionY + "px";
+        this.obstacleElm.style.width = this.width + "px";
+        this.obstacleElm.style.height = this.height + "px";
 
         const parentElm = document.getElementById("board");
-        parentElm.appendChild(this.BCelm);
+        parentElm.appendChild(this.obstacleElm);
     }
     moveDown(){
-        this.y--;
-        this.BCelm.style.top = this.y + "px";
+        this.positionY--;
+        this.obstacleElm.style.bottom = this.positionY + "px";
+    }
+
+    removeChicken(){
+        this.obstacleElm.remove();
     }
 }
 
+const obstaclesArr = [];
 
-const cat = new Cat();
-const newGoodChicken = new GoodChicken();
-const newBadChicken = new BadChicken();
+setInterval(() => {
+    const newObstacle = new Obstacle();
+    obstaclesArr.push(newObstacle);
+}, 1500);
 
-const chickensArr = [];
+setInterval(() => {
+    obstaclesArr.forEach( (obstacleInstance) => {
+        obstacleInstance.moveDown();
+
+        if(
+            player.positionX < obstacleInstance.positionX + obstacleInstance.width &&          
+            player.positionX + player.width > obstacleInstance.positionX &&       
+            player.positionY < obstacleInstance.positionY + obstacleInstance.height &&        
+            player.positionY + player.height > obstacleInstance.positionY
+        ){
+            player.increaseScore();
+            obstacleInstance.removeChicken();
+        }
+       
+
+    });
+}, 0.7);
+
+
+// CODE FOR THE BAD CHICKEN
+
+class BadChicken {
+    constructor(){
+        this.width = 80;
+        this.height = 80;
+        this.positionX = Math.floor(Math.random() * (1600 - this.width + 1));
+        this.positionY = 700;
+        this.obstacleElm = null;
+
+        this.createDomElement();
+    }
+    createDomElement(){
+        this.badChickenElm = document.createElement("div");
+
+        this.badChickenElm.className = "badChicken";
+        this.badChickenElm.style.left = this.positionX + "px";
+        this.badChickenElm.style.bottom = this.positionY + "px";
+        this.badChickenElm.style.width = this.width + "px";
+        this.badChickenElm.style.height = this.height + "px";
+
+        const parentElm = document.getElementById("board");
+        parentElm.appendChild(this.badChickenElm);
+    }
+    moveDown(){
+        this.positionY--;
+        this.badChickenElm.style.bottom = this.positionY + "px";
+    }
+}
+
+const badChickenArr = [];
+
+setInterval(() => {
+    const newBadChicken = new BadChicken();
+    badChickenArr.push(newBadChicken);
+}, 800);
+
+setInterval(() => {
+    badChickenArr.forEach( (badChickenInstance) => {
+        badChickenInstance.moveDown();
+
+        if(
+            player.positionX < badChickenInstance.positionX + badChickenInstance.width &&          
+            player.positionX + player.width > badChickenInstance.positionX &&       
+            player.positionY < badChickenInstance.positionY + badChickenInstance.height &&        
+            player.positionY + player.height > badChickenInstance.positionY
+        ){
+            player.gameOver();
+        }
+    });
+}, 0.5);
 
 
 
 document.addEventListener("keydown", (e) => {
-    if(e.key === "ArrowUp"){
-        cat.jump();
-    } else if (e.key === "ArrowRight"){
-        cat.walkRight();
-    } else if(e.key === "ArrowLeft"){
-        cat.walkLeft();
+    if (e.code === "ArrowLeft") {
+        player.moveLeft();
+    } else if (e.code === "ArrowRight") {
+        player.moveRight();
     }
 });
