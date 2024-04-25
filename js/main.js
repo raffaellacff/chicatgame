@@ -4,7 +4,9 @@ class Player {
         this.height = 100;
         this.positionX = 512 - this.width / 2;
         this.positionY = 0;
-        this.score = 0;
+        this.jumpHeight = 200;
+        this.jumpSpeed = 5;
+        this.isJumping = false;
 
         this.playerElm = document.getElementById("player");
         this.playerElm.style.left = this.positionX + "px";
@@ -14,19 +16,41 @@ class Player {
     }
     moveLeft() {
         if (this.positionX > 0) {
-            this.positionX -= 10.24;
+            this.positionX -= 25;
             this.playerElm.style.left = this.positionX + "px";
         }
     }
     moveRight() {
         if (this.positionX < 1224 - this.width) {
-            this.positionX += 10.24;
+            this.positionX += 25;
             this.playerElm.style.left = this.positionX + "px";
         }
     }
-    increaseScore(){
-        this.score++;
-        document.getElementById("score").innerText = "score:" + this.score;
+    jump(){
+        if(!this.isJumping){
+            this.isJumping = true;
+            let jumpInterval = setInterval(() => {
+                if(this.positionY < this.jumpHeight){
+                    this.positionY += this.jumpSpeed;
+                    this.playerElm.style.bottom = this.positionY + "px";
+                } else {
+                    clearInterval(jumpInterval);
+                    this.fall();
+                }
+            }, 10);
+        }
+    }
+
+    fall(){
+        let fallInterval = setInterval(() => {
+            if(this.positionY > 0){
+                this.positionY -= this.jumpSpeed;
+                this.playerElm.style.bottom = this.positionY + "px";
+            } else {
+                clearInterval(fallInterval);
+                this.isJumping = false;
+            }
+        }, 10);
     }
 
     gameOver(){
@@ -73,14 +97,16 @@ class Obstacle {
     }
 }
 
-const obstaclesArr = [];
+let score = 0;
+
+const obstaclesArr = []; // where the new good chickens will be stored
 
 setInterval(() => {
     const newObstacle = new Obstacle();
     obstaclesArr.push(newObstacle);
 }, 1500);
 
-setInterval(() => {
+setInterval(() => {       // collision
     obstaclesArr.forEach( (obstacleInstance) => {
         obstacleInstance.moveDown();
 
@@ -90,7 +116,7 @@ setInterval(() => {
             player.positionY < obstacleInstance.positionY + obstacleInstance.height &&        
             player.positionY + player.height > obstacleInstance.positionY
         ){
-            player.increaseScore();
+            score++;
             obstacleInstance.removeChicken();
         }
        
@@ -129,9 +155,9 @@ class BadChicken {
     }
 }
 
-const badChickenArr = [];
+const badChickenArr = []; // where the new bad chickens will be stored
 
-setInterval(() => {
+setInterval(() => {       // collision
     const newBadChicken = new BadChicken();
     badChickenArr.push(newBadChicken);
 }, 800);
@@ -151,12 +177,14 @@ setInterval(() => {
     });
 }, 0.5);
 
-
+// HOW TO MOVE THE CAT
 
 document.addEventListener("keydown", (e) => {
     if (e.code === "ArrowLeft") {
         player.moveLeft();
     } else if (e.code === "ArrowRight") {
         player.moveRight();
+    } else if (e.code === "Space") {
+        player.jump();
     }
 });

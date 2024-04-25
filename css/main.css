@@ -1,7 +1,10 @@
+/* game page */
+
 body {
     background-color: pink;
     margin: 0;
     padding: 0;
+    text-align: center;
 }
 
 #board {
@@ -31,12 +34,86 @@ body {
     background-image: url('../images/badChicken.png');  
     background-position: cover;
 }
+
 .score {
-    position: fixed;
+    position:relative;
     top: 20px;
     right: 20px;
     font-size: 40px;
-  }
+}
+
+/* html page */
+
+.instuctions{
+    color: #C282E0;
+    text-align: center;
+    font-family: Inter;
+    font-size: 6px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;    
+}
+
+ul{
+    color: #C282E0;
+    font-family: Inter;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    list-style: none;   
+}
+
+.btnP{
+    display: inline-flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 7px;
+    background: #D380A8;
+}
+
+/* gameover page */
 
 
-  
+h1{
+    width: 613px;
+    position: relative;
+    font-size: 54px;
+    text-align: center;
+    display: inline-block;
+    height: 81px;
+    color: #c282e0;
+}
+
+h2{
+    width: 467px;
+    position: relative;
+    font-size: 25px;
+    font-family: Inter;
+    color: #c282e0;
+    text-align: center;
+    display: inline-block;
+    height: 36px;
+    
+}
+
+#gif-container{
+    width: 100%;
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    height: 250px;
+    object-fit: cover;
+}
+
+.btnTA{
+    display: inline-flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 7px;
+    background: #D380A8;  
+}
