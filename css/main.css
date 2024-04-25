@@ -11,7 +11,7 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: rgb(128, 209, 209);
-    background-image: url('../images/background.jpg');
+    background-image: url('../images/backgroundd.png');
     position: relative;
     overflow: hidden;
 }
@@ -41,13 +41,23 @@ body {
     right: 20px;
     font-size: 25px;
     font-family: Inter;
-    color: #C282E0;
+    color: #DDB3F1;
+}
+
+#score-container {
+    width: 100%;
+    position: relative;
+    border-radius: 10px;
+    background-color: rgba(194, 130, 224, 0.5);
+    border: 1px solid #d380a8;
+    box-sizing: border-box;
+    height: 63px;  
 }
 
 /* html page */
 
 .instuctions{
-    color: #C282E0;
+    color: #DDB3F1;
     text-align: center;
     font-family: Inter;
     font-size: 6px;
@@ -57,7 +67,7 @@ body {
 }
 
 ul{
-    color: #C282E0;
+    color: #DDB3F1;
     font-family: Inter;
     font-size: 28px;
     font-style: normal;
@@ -86,7 +96,7 @@ h1{
     text-align: center;
     display: inline-block;
     height: 81px;
-    color: #c282e0;
+    color: #DDB3F1;
     font-family: Inter;
 }
 

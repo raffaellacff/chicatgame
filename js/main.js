@@ -20,13 +20,13 @@ class Player {
     }
     moveLeft() {
         if (this.positionX > 0) {
-            this.positionX -= 25;
+            this.positionX -= 35;
             this.playerElm.style.left = this.positionX + "px";
         }
     }
     moveRight() {
         if (this.positionX < 1524 - this.width) {
-            this.positionX += 25;
+            this.positionX += 35;
             this.playerElm.style.left = this.positionX + "px";
         }
     }
@@ -75,7 +75,7 @@ const player = new Player();
 
 class Obstacle {
     constructor(){
-        this.width = 70;
+        this.width = 75;
         this.height = 70;
         this.positionX = Math.floor(Math.random() * (1600 - this.width + 1));
         this.positionY = 700;
@@ -120,7 +120,7 @@ const collisionInterval = setInterval(() => { // collision
             player.positionY < obstacleInstance.positionY + obstacleInstance.height &&
             player.positionY + player.height > obstacleInstance.positionY
         ) {
-            console.log("cat has caught good chicken");
+            document.getElementById("munch").play();
             removeChicken(obstacleInstance);
         }
     });
@@ -142,7 +142,7 @@ function removeChicken(obstacleInstance) {
 
 class BadChicken {
     constructor(){
-        this.width = 80;
+        this.width = 95;
         this.height = 80;
         this.positionX = Math.floor(Math.random() * (1600 - this.width + 1));
         this.positionY = 700;
