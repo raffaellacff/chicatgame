@@ -1,3 +1,7 @@
+let scorePoints = document.getElementById("score");
+
+
+
 class Player {
     constructor() {
         this.width = 100;
@@ -97,7 +101,6 @@ class Obstacle {
     }
 }
 
-let score = 0;
 
 const obstaclesArr = []; // where the new good chickens will be stored
 
@@ -105,6 +108,8 @@ setInterval(() => {
     const newObstacle = new Obstacle();
     obstaclesArr.push(newObstacle);
 }, 1500);
+
+let score = 0;
 
 setInterval(() => {       // collision
     obstaclesArr.forEach( (obstacleInstance) => {
@@ -116,11 +121,12 @@ setInterval(() => {       // collision
             player.positionY < obstacleInstance.positionY + obstacleInstance.height &&        
             player.positionY + player.height > obstacleInstance.positionY
         ){
-            score++;
-            obstacleInstance.removeChicken();
-        }
-       
+           
+                obstacleInstance.removeChicken();
+                score++;
+                scorePoints.innerText = `SCORE: ${score++}`;
 
+        }
     });
 }, 0.7);
 
@@ -186,5 +192,6 @@ document.addEventListener("keydown", (e) => {
         player.moveRight();
     } else if (e.code === "Space") {
         player.jump();
+        document.getElementById("jump").play();
     }
 });

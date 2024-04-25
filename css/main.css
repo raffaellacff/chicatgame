@@ -35,11 +35,13 @@ body {
     background-position: cover;
 }
 
-.score {
+#score {
     position:relative;
     top: 20px;
     right: 20px;
-    font-size: 40px;
+    font-size: 25px;
+    font-family: Inter;
+    color: #C282E0;
 }
 
 /* html page */
@@ -85,6 +87,7 @@ h1{
     display: inline-block;
     height: 81px;
     color: #c282e0;
+    font-family: Inter;
 }
 
 h2{
