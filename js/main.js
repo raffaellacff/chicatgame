@@ -1,6 +1,6 @@
 let scorePoints = document.getElementById("score");
-
-
+let score = 0;
+let collision = false;
 
 class Player {
     constructor() {
@@ -25,7 +25,7 @@ class Player {
         }
     }
     moveRight() {
-        if (this.positionX < 1224 - this.width) {
+        if (this.positionX < 1524 - this.width) {
             this.positionX += 25;
             this.playerElm.style.left = this.positionX + "px";
         }
@@ -62,6 +62,10 @@ class Player {
     }
 }
 
+function increasePoint(points){
+    score += points;
+    scorePoints.textContent =`SCORE: ${score}`;
+}
 
 const player = new Player();
 
@@ -96,40 +100,43 @@ class Obstacle {
         this.obstacleElm.style.bottom = this.positionY + "px";
     }
 
-    removeChicken(){
-        this.obstacleElm.remove();
-    }
+
 }
 
-
 const obstaclesArr = []; // where the new good chickens will be stored
-
+let collisionHappen = true;
 setInterval(() => {
     const newObstacle = new Obstacle();
     obstaclesArr.push(newObstacle);
 }, 1500);
 
-let score = 0;
-
-setInterval(() => {       // collision
-    obstaclesArr.forEach( (obstacleInstance) => {
+const collisionInterval = setInterval(() => { // collision
+    obstaclesArr.forEach((obstacleInstance) => {
         obstacleInstance.moveDown();
 
-        if(
-            player.positionX < obstacleInstance.positionX + obstacleInstance.width &&          
-            player.positionX + player.width > obstacleInstance.positionX &&       
-            player.positionY < obstacleInstance.positionY + obstacleInstance.height &&        
+        if (
+            player.positionX < obstacleInstance.positionX + obstacleInstance.width &&
+            player.positionX + player.width > obstacleInstance.positionX &&
+            player.positionY < obstacleInstance.positionY + obstacleInstance.height &&
             player.positionY + player.height > obstacleInstance.positionY
-        ){
-           
-                obstacleInstance.removeChicken();
-                score++;
-                scorePoints.innerText = `SCORE: ${score++}`;
-
+        ) {
+            console.log("cat has caught good chicken");
+            removeChicken(obstacleInstance);
         }
     });
 }, 0.7);
 
+function removeChicken(obstacleInstance) {
+    if (collisionHappen) {
+        const parentElm = document.getElementById("board");
+        parentElm.removeChild(obstacleInstance.obstacleElm);
+        increasePoint(120);
+    }
+}
+
+
+
+// cat.catElm.parentElm.removeChild(cat.catElm)
 
 // CODE FOR THE BAD CHICKEN
 
