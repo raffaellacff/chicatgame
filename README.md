@@ -1,7 +1,6 @@
 
-:kissing_cat:
 
-# OOP PROJECT 1 - CHICAT GAME 
+# OOP PROJECT 1 - CHICAT GAME :kissing_cat::kissing_cat::kissing_cat:
 
 <img src="https://i.imgur.com/1QgrNNw.png" alt="ironhack logo">
 
@@ -33,6 +32,10 @@ HTML
 ### Personal Opinion
 ---
 I had a lot of fun creating this game. I had a lot of frustrating moment and a lot of blockers but I believe I am quite satisfied with the final result. My blood, sweat and tears ended up making quite an ejoyable game featuring my one of my favourite subjects - cats. I hope you enjoy playing it as much as I do.
+
+### Demo
+---
+Here's where you can play! https://raffaellacff.github.io/chicatgame/
 
 
 ### Setup
